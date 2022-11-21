@@ -6,5 +6,6 @@ router.get('/', controller.getAllBusinesses);
 router.post('/', controller.createBusiness);
 router.get('/:id', controller.getBusiness);
 router.put('/:id', controller.updateBusiness);
+router.delete('/:id', controller.deleteBusiness);
 
 module.exports = router;

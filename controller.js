@@ -104,9 +104,38 @@ const updateBusiness = async (req, res) => {
   }
 };
 
+const deleteBusiness = async (req, res) => {
+  try {
+    if (!ObjectId.isValid(req.params.id)) {
+      res
+        .status(400)
+        .json('Must use a valid business id to delete a business.');
+    }
+
+    const businessId = new ObjectId(req.params.id);
+
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('businesses')
+      .remove({ _id: businessId }, true);
+
+    if (response.deletedCount > 0) {
+      res.status(204).send();
+    } else {
+      res
+        .status(500)
+        .json(`An error occurred deleting a business: ${response.error}`);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAllBusinesses,
   getBusiness,
   createBusiness,
   updateBusiness,
+  deleteBusiness,
 };
