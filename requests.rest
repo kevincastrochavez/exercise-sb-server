@@ -17,3 +17,17 @@ content-type: application/json
   "phoneNumber": "123-456-7890",
   "businessWebsite": "crumbl.com"
 }
+
+### Updates a business
+PUT http://localhost:3000/637bb3580f599948bbc8d789 HTTP/1.1 
+content-type: application/json
+
+{
+  "businessName": "Crumbl Cookie Modified",
+  "address": "51 Main Street",
+  "zipCode": "83440",
+  "opens": "10am",
+  "closes": "9pm",
+  "phoneNumber": "123-456-7890",
+  "businessWebsite": "crumbl.com"
+}

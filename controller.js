@@ -48,6 +48,7 @@ const createBusiness = async (req, res) => {
       phoneNumber: req.body.phoneNumber,
       businessWebsite: req.body.businessWebsite,
     };
+
     const response = await mongodb
       .getDb()
       .db()
@@ -65,8 +66,47 @@ const createBusiness = async (req, res) => {
   }
 };
 
+const updateBusiness = async (req, res) => {
+  try {
+    if (!ObjectId.isValid(req.params.id)) {
+      res
+        .status(400)
+        .json('Must use a valid business id to update a business.');
+    }
+
+    const businessId = new ObjectId(req.params.id);
+
+    const business = {
+      businessName: req.body.businessName,
+      address: req.body.address,
+      zipCode: req.body.zipCode,
+      opens: req.body.opens,
+      closes: req.body.closes,
+      phoneNumber: req.body.phoneNumber,
+      businessWebsite: req.body.businessWebsite,
+    };
+
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('businesses')
+      .replaceOne({ _id: businessId }, business);
+
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res
+        .status(500)
+        .json(`An error occurred updating a business: ${response.error}`);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAllBusinesses,
   getBusiness,
   createBusiness,
+  updateBusiness,
 };
