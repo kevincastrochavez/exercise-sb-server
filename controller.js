@@ -37,7 +37,36 @@ const getBusiness = async (req, res) => {
   }
 };
 
+const createBusiness = async (req, res) => {
+  try {
+    const business = {
+      businessName: req.body.businessName,
+      address: req.body.address,
+      zipCode: req.body.zipCode,
+      opens: req.body.opens,
+      closes: req.body.closes,
+      phoneNumber: req.body.phoneNumber,
+      businessWebsite: req.body.businessWebsite,
+    };
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection('businesses')
+      .insertOne(business);
+    if (response.acknowledged) {
+      res.status(201).json(response);
+    } else {
+      res
+        .status(500)
+        .json(`An error occurred creating a business: ${response.error}`);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAllBusinesses,
   getBusiness,
+  createBusiness,
 };
