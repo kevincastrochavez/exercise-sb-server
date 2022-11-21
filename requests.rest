@@ -1,0 +1,36 @@
+### Gets all businesses
+GET http://localhost:3000
+
+### Gets a single business
+GET http://localhost:3000/637bb3580f599948bbc8d789
+
+### Creates a business
+POST http://localhost:3000/ HTTP/1.1 
+content-type: application/json
+
+{
+  "businessName": "Crumbl Cookie",
+  "address": "51 Main Street",
+  "zipCode": "83440",
+  "opens": "10am",
+  "closes": "9pm",
+  "phoneNumber": "123-456-7890",
+  "businessWebsite": "crumbl.com"
+}
+
+### Updates a business
+PUT http://localhost:3000/637bb3580f599948bbc8d789 HTTP/1.1 
+content-type: application/json
+
+{
+  "businessName": "Crumbl Cookie",
+  "address": "51 Main Street",
+  "zipCode": "83440",
+  "opens": "10am",
+  "closes": "9pm",
+  "phoneNumber": "123-456-7890",
+  "businessWebsite": "crumbl.com"
+}
+
+### Deletes a restaurant by its ID
+DELETE  http://localhost:3000/637bcd1732f6e7c1b13d568e HTTP/1.1 
